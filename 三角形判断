@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+void Max(int &a, int &b, int &c);
+int main()
+{
+    cout << "请按q或Q键退出，按其他键继续!" << endl;
+    char ch;
+    cin >> ch;
+    string test;
+    getline(cin,test);  //获取余下的值
+    while (ch != 'Q' && ch != 'q')
+    {
+        int a = 0, b = 0, c = 0;
+        cout << "请输入三角形的三边长度，按回车键确定输入!" << "\n";
+        cout << "a = ";
+        cin >> a;
+        cout << "b = ";
+        cin >> b;
+        cout << "c = ";
+        cin >> c;
+        Max(a, b, c);
+        if(b + c > a)
+        {
+            if(b*b + c*c > a*a)
+            {
+                cout << "这个三角形为锐角三角形！" << endl;
+            }
+            else if (b*b + c*c == a*a)
+            {
+                cout << "这个三角形为直角三角形!" << endl;
+            }
+            else if (b*b + c*c < a*a)
+            {
+                cout << "这个三角形为钝角三角形！" << endl;
+            }
+        }
+        else
+        {
+            cout << "此三边无法构成三角形！" << endl;
+        }
+        cout << "请按q或Q键退出，按其他键继续!" << endl;
+        cin >> ch;
+        getline(cin,test);  //获取余下的值
+    }
+    system("pause");
+    return 0;
+
+}
+void Max(int &a,int &b,int &c)
+{
+    int st = a;
+    if(st > b)
+    {
+        if(st < c)
+        {
+            a = c;
+            c = st;
+        }
+    }
+    else
+    {
+        if(b > c)
+        {
+            a = b;
+            b = st;
+        }
+        else
+        {
+            a = c;
+            c = st;
+        }
+    }
+}
