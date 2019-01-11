@@ -1,0 +1,49 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+const int SIZE = 20;        //人数
+struct loop
+    {
+        int flag = 0;           //标志：0表示可以报数，1表示出列
+    };
+int main()
+{
+    int baoshu = 0;
+    vector<int> shunxu;         //记录出列顺序，当出列大小等于人数时，循环结束
+
+    loop rf[SIZE];
+    while (1)
+    {
+        static int count = 0;               //计数出列人数
+        for (int i = 0; i < SIZE; i++)      //报数循环
+        {
+            if (rf[i].flag == 0)            //0为不出局的人，进行下一序列操作
+            {
+                baoshu++;                   //报数由1开始
+                if (baoshu % 3 == 0)        //报数为3倍数的出局
+                {
+                    rf[i].flag = 1;         //标识出局
+                    shunxu.push_back(i+1);  //记录出局顺序
+                    count++;
+                    if (count == SIZE)      //出局人数等于参与人数时结束循环
+                        break;
+                }
+                //个人报数信息
+                // cout << i+1 << ":baoshu=" << baoshu << endl;
+            }
+
+        }
+
+        if (count == SIZE)                  //跳出外层while循环
+            break;
+
+    }
+    //顺序
+    // for (auto s = shunxu.begin(); s != shunxu.end();++s)
+    //     {
+    //         cout << *s << endl;
+    //     }
+    cout << "最后一个为: " << shunxu[SIZE-1];
+    // cin.get();
+    return 0;
+}
