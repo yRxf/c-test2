@@ -1,0 +1,31 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int replace(char *str, char c1, char c2);
+int main()
+{
+    char str;
+    string str1;
+    int count;
+    char c1 = 'a', c2 = 'b';
+    while (cin >> str && str != '0')
+    {
+        count = replace(&str, c1, c2);
+        str1 += str;
+    }
+    cout << count << "\n"
+         << str1 << endl;
+    return 0;
+}
+
+int replace(char *str, char c1, char c2)
+{
+    static int count;
+    if(*str==c1)
+    {
+        *str = c2;
+        count++;
+    }
+    return count;
+}
