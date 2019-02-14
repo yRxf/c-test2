@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int tong[10] = {0},
+    jiaoyan[10] = {0};
+    int shuzi = 123;
+    int dj;
+    bool flag = true;
+    while(shuzi>10)
+    {
+        ++tong[shuzi % 10];
+        shuzi /= 10;
+    }
+    ++tong[shuzi];
+
+    cout << "plase : " << endl;
+    cin >> dj;
+    while (dj > 10)
+    {
+        ++jiaoyan[dj % 10];
+        dj /= 10;
+    }
+    ++jiaoyan[dj];
+
+    for (int i = 0; i < 10; ++i)
+    {
+        if (tong[i] != jiaoyan[i])
+        {
+            flag = false;
+            break;
+        }
+    }
+    if (flag == false)
+        cout << "未中奖";
+    else
+        cout << "中奖";
+    return 0;
+}
