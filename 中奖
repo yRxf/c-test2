@@ -1,5 +1,17 @@
 #include<iostream>
 using namespace std;
+void chaiff(int arr[], int shu);
+
+void chaiff(int arr[],int shu)
+{
+    while(shu>10)
+    {
+        ++arr[shu % 10];
+        shu /= 10;
+    }
+    ++arr[shu];
+}
+
 int main()
 {
     int tong[10] = {0},
@@ -7,21 +19,11 @@ int main()
     int shuzi = 123;
     int dj;
     bool flag = true;
-    while(shuzi>10)
-    {
-        ++tong[shuzi % 10];
-        shuzi /= 10;
-    }
-    ++tong[shuzi];
 
+    chaiff(tong, shuzi);
     cout << "plase : " << endl;
     cin >> dj;
-    while (dj > 10)
-    {
-        ++jiaoyan[dj % 10];
-        dj /= 10;
-    }
-    ++jiaoyan[dj];
+    chaiff(jiaoyan, dj);
 
     for (int i = 0; i < 10; ++i)
     {
