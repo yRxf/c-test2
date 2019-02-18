@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    string str, str1;
+    getline(cin, str);
+    getline(cin, str1);
+
+    while(str1!="0")
+    {
+        int size = str.size();
+        int size1 = str1.size();
+        int flag = 0;
+        for (int i = 0; i < size1; ++i)
+        {
+            for (int j = size - 1; j >= 0; --j)
+            {
+                if(str1[i]==str[j])
+                {
+                    for (int k = i, l = j; l < size; ++k, ++l)
+                    {
+                        flag = 0;
+                        if(str1[k]==str[l])
+                        {
+                            flag = 1;
+                        }
+                    }
+                    goto res;
+                }
+            }
+        }
+        res:
+        if(flag==0)
+        {
+
+            cout << "no";
+            break;
+        }
+        else
+        {
+            cout << "yes" << endl;
+            str = str1;
+            getline(cin, str1);
+        }
+
+    }
+    return 0;
+}
