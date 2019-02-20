@@ -1,0 +1,30 @@
+#include<iostream>
+#include<windows.h>
+using namespace std;
+
+int main()
+{
+    int i, num, min = 0, max = 100;
+    cout << "0~100" << endl;
+    srand(0);
+    num = rand() % 98 + 1;
+    while (cin >> i)
+    {
+        if (i > min && i < max)
+        {
+            if (i == num)
+            {
+                cout << "boom!";
+                break;
+            }
+            Sleep(10000/(max-min));
+        min = i < num ? i : min;
+        max = i > num ? i : max;
+        cout << min << "~" << max << endl;
+        }
+        else
+            cout << "输入的值，超出范围，请重新报数!" << endl;
+    }
+    cin.get();
+    return 0;
+}
