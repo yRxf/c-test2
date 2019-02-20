@@ -10,14 +10,17 @@ int main()
     num = rand() % 98 + 1;
     while (cin >> i)
     {
+
         if (i > min && i < max)
         {
+            int s = max - min;
+            if(s!=2)
+                Sleep(7500/(max-min));
             if (i == num)
             {
-                cout << "boom!";
+                cout << "boom!" << endl;
                 break;
             }
-            Sleep(10000/(max-min));
         min = i < num ? i : min;
         max = i > num ? i : max;
         cout << min << "~" << max << endl;
@@ -25,6 +28,6 @@ int main()
         else
             cout << "输入的值，超出范围，请重新报数!" << endl;
     }
-    cin.get();
+    system("pause");
     return 0;
 }
