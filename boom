@@ -15,7 +15,7 @@ int main()
         {
             int s = max - min;
             if(s!=2)
-                Sleep(7500/(max-min));
+                Sleep(7500/s);
             if (i == num)
             {
                 cout << "boom!" << endl;
