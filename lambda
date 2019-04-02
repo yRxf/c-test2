@@ -1,0 +1,20 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int j = 10;
+    auto by_val_lambda = [=] { return j + 1; };                //大概相当于在函数体里面初始化了一个int j = 10;
+    auto by_val1_lambda = [](int j){ return j + 1; };          //跟函数一样
+    auto by_ref_lambda = [&]{ return j + 1; };                 //引用传递
+    cout<<"by_val_lambda: "<<by_val_lambda()<<endl;            //11
+    cout<<"by_val1_lambda: "<<by_val1_lambda(j)<<endl;         //11
+    cout<<"by_ref_lambda: "<<by_ref_lambda()<<endl;            //11
+
+    ++j;                                                       //j=11
+    cout<<"by_val_lambda: "<<by_val_lambda()<<endl;            //11
+    cout<<"by_val1_lambda: "<<by_val1_lambda(j)<<endl;         //12
+    cout<<"by_ref_lambda: "<<by_ref_lambda()<<endl;            //12
+
+    return 0;
+}
