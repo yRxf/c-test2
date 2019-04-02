@@ -3,92 +3,30 @@
 #include <algorithm>
 #include<cstring>
 using namespace std;
-
-double clc(vector<double> su, vector<char> str);  //计算，传入数值，算式
+double clac(string test);                           //计算主程序，包括拆分，计算
+double clc(vector<double> su, vector<char> str);    //计算，传入数值，算式
 //暂不支持括号
 int main()
 {
-    string test;    //输入需要计算的式子
-    cout << "请输入需要计算的公式（最后请附上 = ）:" << endl;
-    getline(cin, test);
-    vector<double> i;   //存储字符0-9将其变为实数
-    vector<char> str;   //存储运算符
-    vector<double> su;  //存储所有实数
-    double sult;        //结果
-    for (auto a = test.begin(); a != test.end(); ++a)
+    char ch = 'a';
+    while (ch != 'q')
     {
-        if (*a >= '0' && *a <= '9')
+        double result;
+        // string test;        //输入需要计算的式子
+        // cout << "请输入需要计算的公式:" << endl;
+        // getline(cin, test);
+        string test = "1+2-(3-3-5)";
+        while(test[test.size()-1]!='=')
         {
-            double z = *a-'0';     //使其变为准确的数值
-            i.push_back(z);
+            test += "=";
         }
-        else if (*a == '.')
-        {
-            i.push_back(11);    //标识小数
-        }
-        else
-        {
-            if (!i.empty())
-            {
-                double sum = 0;
-                auto it = find(i.begin(),i.end(),11);   //value为要查找的值，该函数返回一个指向对应元素的迭代器
-                if(it!=i.end())                         //如果有，则是小数
-                {
-                    int count = 0;
-                    for (auto vg = it - 1; vg != i.begin() - 1; --vg)
-                    {
-                        int count1 = count;
-                        int ten = 1;
-                        while (count1 != 0)
-                        {
-                            ten *= 10;
-                            count1--;
-                        }
-                        sum += *vg * ten;
-                        count++;
-                    }
-                    count = 1;
-                    for (auto xc = it + 1; xc != i.end(); ++xc)
-                    {
-                        int count1 = count;
-                        double ten = 1;
-                        while (count1 != 0)
-                        {
-                            ten *= 0.1;
-                            count1--;
-                        }
-                        sum += *xc * ten;
-                        count++;
-                    }
-                }
-                else            //整数
-                {
-                    int size = i.size();
-                    int count = 1;
-                    for (auto n = i.begin(); n != i.end(); ++n)
-                    {
-                        int size1 = size - count;
-                        int ten = 1;
-                        while (size1 > 0)
-                        {
-                            ten *= 10;
-                            size1--;
-                        }
-                        sum += *n * ten;
-                        count++;
-                    }
-                }
-                i.clear();
-                su.push_back(sum);
-            }
-            str.push_back(*a);      //将运算符号存入
-        }
-
+        result = clac(test);
+        cout << test << "=" << result;
+        cout << "输入q退出系统！" << ends << "输入其他键继续" << endl;
+        cin >> ch;
     }
-    sult = clc(su, str);
-    cout << test << sult << endl;
     // system("pause");
-    cin.get();
+    // cin.get();
     return 0;
 }
 // 123+567*890=
@@ -137,4 +75,133 @@ double clc(vector<double> su, vector<char> str)
         result += *s;      //所有为加法
     }
     return result;
+}
+
+double  clac(string test)
+{
+    string shizi = "";
+    int en = 0;
+    int be = en - 1;
+    int flag = 0;
+    double res = 0;
+    while(test[test.size()-1]!='=')
+    {
+        test += "=";
+    }
+    for (; en<test.size(); ++en)
+    {
+        if(test[en]==')')
+      {
+         flag = 1;
+         for (be = en - 1; be >= 0; --be)
+         {
+               if (test[be] == '(')
+               {
+                  string kohk = "";
+                  for (int nz = be + 1; nz < en; ++nz)
+                  {
+                     kohk += test[nz];
+                  }
+                  res = clac(kohk);
+                  cout << "res=" << res << endl;
+                  break;
+               }
+         }
+      }
+        else
+        {
+            shizi += test[en];
+        }
+        if(flag==1){break;}
+    }
+    if(res<0)
+    {
+        shizi += "0";
+    }
+    shizi += to_string(res);
+    for (int i = en + 1; i < test.size();++i)
+    {
+        shizi += test[i];
+    }
+    if(flag==1){res = clac(shizi);}
+    if (flag == 0)
+    {
+        cout << test << endl;
+        vector<double> i;  //存储字符0-9将其变为实数
+        vector<char> str;  //存储运算符
+        vector<double> su; //存储所有实数
+        double sult;       //结果
+        for (auto a = test.begin(); a != test.end(); ++a)
+        {
+            if (*a >= '0' && *a <= '9')
+            {
+                double z = *a - '0'; //使其变为准确的数值
+                i.push_back(z);
+            }
+            else if (*a == '.')
+            {
+                i.push_back(11); //标识小数
+            }
+            else
+            {
+                if (!i.empty())
+                {
+                    double sum = 0;
+                    auto it = find(i.begin(), i.end(), 11); //value为要查找的值，该函数返回一个指向对应元素的迭代器
+                    if (it != i.end())                      //如果有，则是小数
+                    {
+                        int count = 0;
+                        for (auto vg = it - 1; vg != i.begin() - 1; --vg)
+                        {
+                            int count1 = count;
+                            int ten = 1;
+                            while (count1 != 0)
+                            {
+                                ten *= 10;
+                                count1--;
+                            }
+                            sum += *vg * ten;
+                            count++;
+                        }
+                        count = 1;
+                        for (auto xc = it + 1; xc != i.end(); ++xc)
+                        {
+                            int count1 = count;
+                            double ten = 1;
+                            while (count1 != 0)
+                            {
+                                ten *= 0.1;
+                                count1--;
+                            }
+                            sum += *xc * ten;
+                            count++;
+                        }
+                    }
+                    else //整数
+                    {
+                        int size = i.size();
+                        int count = 1;
+                        for (auto n = i.begin(); n != i.end(); ++n)
+                        {
+                            int size1 = size - count;
+                            int ten = 1;
+                            while (size1 > 0)
+                            {
+                                ten *= 10;
+                                size1--;
+                            }
+                            sum += *n * ten;
+                            count++;
+                        }
+                    }
+                    i.clear();
+                    su.push_back(sum);
+                }
+                str.push_back(*a); //将运算符号存入
+            }
+        }
+        sult = clc(su, str);
+        // cout <<endl<< test << endl << sult;
+        return sult;
+    }
 }
