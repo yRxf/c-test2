@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+using namespace std;
+
+int main()
+{
+	map<string, vector<string>> family;	
+	char ch = ' ';
+	while (ch != 'q')
+	{
+		vector<string> mings;
+		string xing, ming;
+		cout << "请输入家庭姓氏！" << endl;
+		cin >> xing;
+		cout << "请输入成员名字！（输入q结束！）" << endl;
+		auto it = back_inserter(mings);
+		cin >> ming;
+		while (ming != "q")
+		{
+			*it = ming;
+			cin >> ming;
+		}
+		family[xing] = mings;
+		cout << "添加成功！输入q结束，输入其他继续！" << endl;
+		cin >> ch;
+		string del;
+		getline(cin, del);
+	}
+	for (auto& x : family)
+	{
+		cout << "家庭姓氏: " << x.first << "\n成员名字: ";
+		for (auto m : x.second)
+		{
+			cout << m << ends;
+		}
+		cout << endl;
+	}
+
+	return 0;
+}
