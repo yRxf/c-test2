@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	string A;			//除数
+	int B;				//被除数
+	int Q;				//商
+	int R = 0;			//余数
+	cin >> A >> B;		//输入除数和被除数
+	for (int i = 0; i < A.size(); ++i)
+	{
+		int chushu;
+		if (i == 0) chushu = A[i] - '0';
+		else chushu = (A[i] - '0') + R * 10;
+		Q = chushu / B;
+		R = chushu % B;
+		if (i != 0 || Q != 0)
+			cout << Q;
+	}
+	cout << " " << R;
+	return 0;
+}
