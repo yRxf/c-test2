@@ -1,0 +1,26 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+int main()
+{
+	std::string str;
+	int box[10] = { 0 };
+	int zero;
+	for (int i = 0; i < 10; ++i) std::cin >> box[i];
+	zero = box[0];
+	for (int i = 0; i < 10; ++i)
+	{
+		while (box[i] != 0)
+		{
+			str += std::to_string(i);
+			--box[i];
+		}
+	}
+	if (zero != 0)
+	{
+		str[0] = str[zero];
+		str[zero] = '0';
+	}
+	std::cout << str;
+	return 0;
+}
