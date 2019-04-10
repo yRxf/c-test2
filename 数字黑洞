@@ -1,0 +1,38 @@
+#include<iostream>
+#include <string>
+#include<algorithm>
+
+std::string szhd(std::string num);
+int main()
+{
+	std::string num;
+	std::cin >> num;
+	while(num.size()<4)
+	{
+		num.insert(0,"0");
+	}
+	if (num.size() > 4)
+		return -1;
+	num = szhd(num);
+	
+	while (num != "6174")
+	{
+		num = szhd(num);
+	}
+	return 0;
+}
+std::string szhd(std::string num)
+{
+	std::string num_x = num;
+	std::sort(num.begin(), num.end());
+	std::sort(num_x.begin(), num_x.end(), [](char& a, char& b) { return a > b; });
+	std::cout << num_x << " - " << num << " = ";
+	num = std::to_string(atoi(num_x.c_str()) - atoi(num.c_str()));
+	if (num == "0")
+	{
+		std::cout << "0000" << std::endl;
+		return "6174";
+	}
+	std::cout << num << std::endl;
+	return num;
+}
