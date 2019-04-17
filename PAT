@@ -1,0 +1,25 @@
+#include<iostream>
+
+int main()
+{
+	std::string str;
+	std::cin >> str;
+	int p = 0, pa = 0, pat = 0;
+	for (int i = 0; i < str.size(); ++i)
+	{
+		if (str[i] == 'P')
+			++p;
+		else if (str[i] == 'A')
+		{
+			pa += p;
+			pa = pa % 1000000007;
+		}
+		else if (str[i] == 'T')
+		{
+			pat += pa;
+			pat = pat % 1000000007;
+		}
+	}
+	std::cout << pat;
+	return 0;
+}
