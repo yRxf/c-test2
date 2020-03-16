@@ -1,0 +1,14 @@
+#include <initializer_list>
+#include <iostream>
+void test(std::initializer_list<std::string> il)
+{
+    for (auto s:il)
+    {
+        std::cout << s << std::endl;
+    }
+}
+int main()
+{
+    test({"xhh", "cy"});
+    return 0;
+}
